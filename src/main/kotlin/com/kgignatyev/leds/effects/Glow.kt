@@ -1,11 +1,11 @@
 package com.kgignatyev.leds.effects
 
 import com.kgignatyev.leds.LedStringSection
-import com.kgignatyev.leds.RGB
+import java.awt.Color
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class GlowAll(val sections:List<LedStringSection>, val rgb: (Long, Double) -> RGB, val duration: Duration):Effect{
+class GlowAll(val sections:List<LedStringSection>, val rgb: (Long, Double) -> Color, val duration: Duration):Effect{
 
     val glowSections = sections.map { section ->
         Glow(section, rgb, duration)
@@ -26,7 +26,7 @@ class GlowAll(val sections:List<LedStringSection>, val rgb: (Long, Double) -> RG
 }
 
 
-class Glow(val section: LedStringSection, val frgb:(Long,Double)-> RGB, val duration: Duration): Effect {
+class Glow(val section: LedStringSection, val frgb:(Long,Double)-> Color, val duration: Duration): Effect {
     var frameDuration: Duration = 0.05.seconds
 
     var currentFrame = 0
@@ -41,10 +41,10 @@ class Glow(val section: LedStringSection, val frgb:(Long,Double)-> RGB, val dura
         val fractionOfCycle =  inCycleMillis.toDouble()/durationInMillis.toDouble()
         val isEven = cycle % 2 == 0L
         val rgb = frgb(cycle, fractionOfCycle)
-        val newRGB = RGB(
-            convertColor(rgb.r, fractionOfCycle, isEven),
-            convertColor(rgb.g, fractionOfCycle, isEven),
-            convertColor(rgb.b, fractionOfCycle, isEven)
+        val newRGB = Color(
+            convertColor(rgb.red, fractionOfCycle, isEven),
+            convertColor(rgb.green, fractionOfCycle, isEven),
+            convertColor(rgb.blue, fractionOfCycle, isEven)
         )
         section.setStates( MutableList(section.length) { newRGB } )
     }

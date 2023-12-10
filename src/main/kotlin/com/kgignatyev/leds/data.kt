@@ -1,14 +1,13 @@
 package com.kgignatyev.leds
 
-
-data class RGB(val r: Int, val g: Int, val b: Int)
+import java.awt.Color
 
 
 
 class LedStringSection( val length: Int = 50, val reversed: Boolean = false) {
-    val leds: MutableList<RGB> = MutableList(length) { RGB(0, 0, 0) }
+    val leds: MutableList<Color> = MutableList(length) { Color.black}
 
-    fun setStates(states: List<RGB>) {
+    fun setStates(states: List<Color>) {
         if (states.size != length) {
             throw IllegalArgumentException("States size must be equal to section length")
         }
@@ -20,7 +19,7 @@ class LedStringSection( val length: Int = 50, val reversed: Boolean = false) {
         }
     }
 
-    fun set(ledIndex: Int, rgb: RGB) {
+    fun set(ledIndex: Int, rgb: Color) {
         if( ledIndex >= length ) {
             throw IllegalArgumentException("Led index must be less than section length")
         }
@@ -32,6 +31,6 @@ class LedStringSection( val length: Int = 50, val reversed: Boolean = false) {
     }
 
     fun allOff() {
-        leds.fill(RGB(0, 0, 0))
+        leds.fill(Color(0, 0, 0))
     }
 }

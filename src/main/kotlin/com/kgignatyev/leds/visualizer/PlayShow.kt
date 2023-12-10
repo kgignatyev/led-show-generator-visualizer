@@ -23,7 +23,7 @@ class LedSimulator(val showFile: File) : JPanel(), ActionListener {
     val frameLength = 20
 
     val framesTimer = Timer(frameLength, this)
-
+    var currentFrameIndex = 0
     fun setCurrentStates(states: List<Color>) {
         currentLedStates.clear()
         if (states.size != strings * ledsPerString) {
@@ -105,6 +105,7 @@ class LedSimulator(val showFile: File) : JPanel(), ActionListener {
                     }
                     ledStates.add(states)
                 }
+                currentFrameIndex = 0
             }
         }
     }
@@ -120,7 +121,7 @@ class LedSimulator(val showFile: File) : JPanel(), ActionListener {
         showNextFrame()
     }
 
-    var currentFrameIndex = 0
+
     private fun showNextFrame() {
         if (ledStates.isNotEmpty()) {
             val frame = ledStates[currentFrameIndex]

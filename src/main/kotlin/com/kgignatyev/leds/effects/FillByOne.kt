@@ -1,11 +1,11 @@
 package com.kgignatyev.leds.effects
 
 import com.kgignatyev.leds.LedStringSection
-import com.kgignatyev.leds.RGB
+import java.awt.Color
 import kotlin.time.Duration
 
 
-class FillByOne(val section: LedStringSection,val rgb: RGB): Effect {
+class FillByOne(val section: LedStringSection,val rgb: Color): Effect {
     private var framesPerLed: Double = 1.0
     var frameCount = 10
     var currentFrame = 0
