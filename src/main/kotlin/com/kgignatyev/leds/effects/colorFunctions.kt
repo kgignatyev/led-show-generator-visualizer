@@ -21,6 +21,11 @@ fun rainbow(): (Long, Double) -> Color {
     return ::f
 }
 
+/**
+ * todo: replace with more accurate wheel function
+ *
+ * https://github.com/rpi-ws281x/rpi-ws281x-python/issues/40
+ */
 fun wheel(pos: Int): Color {
     return when {
         pos < 85 -> Color(pos * 3, 255 - pos * 3, 0)
