@@ -1,6 +1,7 @@
 package com.kgignatyev.leds
 
 import com.kgignatyev.leds.effects.*
+import com.kgignatyev.leds.effects.Rainbow.Companion.rainbowStrips
 import java.awt.Color
 import java.io.FileWriter
 import java.io.Writer
@@ -27,7 +28,10 @@ fun main() {
     val fileName = "light-show.txt"
     FileWriter(fileName).use {
         writer = it
-
+        allOff()
+        runEffects(10.seconds,*rainbowStrips(ledSections, 10 ) )
+        allOff()
+        runEffects(10.seconds, RainbowWheel(ledSections) )
         allOff()
         runEffects(10.seconds, RunLights(ledSections,
              constColor( Color(30,144,255)),
@@ -71,9 +75,10 @@ fun main() {
         allOff()
         runEffects(16.seconds, GlowAll(ledSections, rainbow(), 4.seconds))
         allOff()
-        runEffects(4.seconds, GlowAll(ledSections,constColor( Color.red), 2.seconds))
+        runEffects(4.seconds, GlowAll(ledSections, constColor( Color.red), 2.seconds))
         runEffects(4.seconds, GlowAll(ledSections, constColor(Color.green), 2.seconds))
         runEffects(4.seconds, GlowAll(ledSections, constColor(Color.blue), 2.seconds))
+        end()
     }
 
     println("Show is generated in $fileName")
@@ -96,6 +101,11 @@ fun runEffects( duration: Duration, vararg effects: Effect) {
     }
 }
 
+fun end() {
+    writer.write("END\n") // end of show, need this to ensure we got full file when
+    //we are reading it by PI
+    writer.flush()
+}
 fun writeFrame() {
     val line = ledSections.joinToString(separator = ",") { section ->
         section.leds.joinToString(separator = ",") { led ->
@@ -103,6 +113,5 @@ fun writeFrame() {
         }
     } + "\n"
     writer.write(line)
-    writer.flush()
 }
 

@@ -20,3 +20,17 @@ fun rainbow(): (Long, Double) -> Color {
     }
     return ::f
 }
+
+fun wheel(pos: Int): Color {
+    return when {
+        pos < 85 -> Color(pos * 3, 255 - pos * 3, 0)
+        pos < 170 -> {
+            val adjustedPos = pos - 85
+            Color(255 - adjustedPos * 3, 0, adjustedPos * 3)
+        }
+        else -> {
+            val adjustedPos = pos - 170
+            Color(0, adjustedPos * 3, 255 - adjustedPos * 3)
+        }
+    }
+}

@@ -86,24 +86,29 @@ class LedSimulator(val showFile: File) : JPanel(), ActionListener {
         if (showFile.exists()) {
             if (fileTimestamp != showFile.lastModified()) {
                 println("Waiting for file $showFile to refresh")
-                var currentHash = 0
-                //let's wait for file to be written
+                var lines: List<String> = listOf()
+                var lastLineFound = false
+                //let's wait for file to have END at last line
                 var lastHash = showFile.hashCode()
-                while (lastHash != currentHash) {
-                    lastHash = currentHash
+                while (! lastLineFound) {
+                    lines = showFile.readLines()
+                    if( lines.isNotEmpty()) {
+                        lastLineFound = lines.last().startsWith("END")
+                    }
                     Thread.sleep(100)
-                    currentHash = showFile.hashCode()
                 }
                 println("Reading file $showFile")
 
                 fileTimestamp = showFile.lastModified()
                 ledStates.clear()
-                showFile.forEachLine { line ->
-                    val states = line.split(",").map { color ->
-                        val rgb = color.split(" ").map { c -> c.toInt() }
-                        Color(rgb[0], rgb[1], rgb[2])
+                lines.forEach { line ->
+                    if(! line.startsWith("END") ) {
+                        val states = line.split(",").map { color ->
+                            val rgb = color.split(" ").map { c -> c.toInt() }
+                            Color(rgb[0], rgb[1], rgb[2])
+                        }
+                        ledStates.add(states)
                     }
-                    ledStates.add(states)
                 }
                 currentFrameIndex = 0
             }

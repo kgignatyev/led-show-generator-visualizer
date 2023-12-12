@@ -1,3 +1,11 @@
+Transfer show runner to Raspberry Pi
+---
+
+```bash
+./copy-code-to-rpi.sh
+```
+
+
 Get the visualizer running
 ---
 
@@ -12,4 +20,6 @@ change effects sequence in `GenerateShow.kt` and run
 mvn package exec:java -Dexec.mainClass="com.kgignatyev.leds.GenerateShowKt"
 ```
 
-then visualizer should reflect the changes
+then visualizer should reflect the changes and play the show
+
+![visualizer](docs/visualizer.png)
