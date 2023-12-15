@@ -29,9 +29,9 @@ fun main() {
     FileWriter(fileName).use {
         writer = it
         allOff()
-        runEffects(10.seconds, SparklyStrings(ledSections, 20))
-        allOff()
         runEffects(10.seconds,*rainbowStrips(ledSections, 10 ) )
+        allOff()
+        runEffects(10.seconds, SparklyStrings(ledSections, 20))
         allOff()
         runEffects(10.seconds, RainbowWheel(ledSections) )
         allOff()

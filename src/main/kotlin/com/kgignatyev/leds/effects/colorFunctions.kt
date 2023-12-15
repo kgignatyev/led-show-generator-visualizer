@@ -42,7 +42,8 @@ fun wheel(pos: Int): Color {
 
 class ColorWheel( var position: Int = 0, val step: Int = 1) {
     fun next(): Color {
-        val color = wheel(position)
+        val adjustedPosition = position % 256
+        val color = wheel(adjustedPosition)
         position = (position + step) % 256
         return color
     }

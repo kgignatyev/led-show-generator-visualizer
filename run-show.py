@@ -61,29 +61,28 @@ def read_show_file():
     global file_name
     global sequence
     print(f"Reading {file_name}")
-    we_have_written_END = False
-    while not we_have_written_END:
+    have_word_END = False
+    while not have_word_END:
         with open(file_name, "r") as f:
             x = f.read()
             if x.find("END") != -1:
-                we_have_written_END = True
+                have_word_END = True
             else:
-                time.sleep(0.1)
-
-    last_file_size = os.path.getsize(file_name)
-    size_changes = True
-    while size_changes:
-        time.sleep(0.3)
-        current_file_size = os.path.getsize(file_name)
-        size_changes = current_file_size != last_file_size
-        last_file_size = current_file_size
-    with open(file_name, 'r') as f:
-        lines = f.readlines()
-        new_sequence = []
-        for line in lines:
-            if line.find("END") == -1:
-                new_sequence.append(read_line(line))
-    sequence = new_sequence
+                time.sleep(0.5)
+    file_successfully_read = False
+    while not file_successfully_read:
+        try:
+            with open(file_name, 'r') as f:
+                lines = f.readlines()
+                new_sequence = []
+                for line in lines:
+                    if line.find("END") == -1:
+                        new_sequence.append(read_line(line))
+                sequence = new_sequence
+                file_successfully_read = True
+        except:
+            print(f"Error reading {file_name}, will try again later")
+            time.sleep(1)
 
 
 def load_file_if_changed() -> bool:
