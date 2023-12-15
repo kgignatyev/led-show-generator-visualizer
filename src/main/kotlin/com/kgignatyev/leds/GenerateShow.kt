@@ -29,6 +29,8 @@ fun main() {
     FileWriter(fileName).use {
         writer = it
         allOff()
+        runEffects(10.seconds, SparklyStrings(ledSections, 20))
+        allOff()
         runEffects(10.seconds,*rainbowStrips(ledSections, 10 ) )
         allOff()
         runEffects(10.seconds, RainbowWheel(ledSections) )
@@ -55,12 +57,12 @@ fun main() {
         runEffects(2.seconds, FillByOne(ledSections[5], Color.green) )
 
 
-        runEffects(2.seconds, FillByOne(ledSections[0], Color.blue) )
-        runEffects(2.seconds, FillByOne(ledSections[1], Color.blue) )
-        runEffects(2.seconds, FillByOne(ledSections[2], Color.blue) )
-        runEffects(2.seconds, FillByOne(ledSections[3], Color.blue) )
-        runEffects(2.seconds, FillByOne(ledSections[4], Color.blue) )
-        runEffects(2.seconds, FillByOne(ledSections[5], Color.blue) )
+        runEffects(2.seconds, FillByOne(ledSections[0], Color.cyan) )
+        runEffects(2.seconds, FillByOne(ledSections[1], Color.cyan) )
+        runEffects(2.seconds, FillByOne(ledSections[2], Color.cyan) )
+        runEffects(2.seconds, FillByOne(ledSections[3], Color.cyan) )
+        runEffects(2.seconds, FillByOne(ledSections[4], Color.cyan) )
+        runEffects(2.seconds, FillByOne(ledSections[5], Color.cyan) )
         allOff()
 
         runEffects(
