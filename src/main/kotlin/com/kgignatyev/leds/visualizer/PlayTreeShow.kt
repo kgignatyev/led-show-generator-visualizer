@@ -9,7 +9,7 @@ import javax.swing.JPanel
 import javax.swing.Timer
 
 
-class LedSimulator(val showFile: File) : JPanel(), ActionListener {
+class TreeLedsSimulator(val showFile: File) : JPanel(), ActionListener {
 
     private var parentFrame: JFrame = JFrame()
     val h = 800
@@ -140,6 +140,6 @@ class LedSimulator(val showFile: File) : JPanel(), ActionListener {
 }
 
 fun main() {
-    LedSimulator(File("light-show.txt"))
+    TreeLedsSimulator(File("light-show.txt"))
 
 }
